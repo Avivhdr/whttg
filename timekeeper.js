@@ -23,10 +23,17 @@ var extractHostName = function(url) {
     //find & remove protocol (http, ftp, etc.) and get hostname
 
     if (url.indexOf("://") > -1) {
-        hostname = url.split('/')[2];
+      hostname = url.split('/')[2];
     }
     else {
-        hostname = url.split('/')[0];
+      hostname = url.split('/')[0];
+    }
+    let urlObj = new URL(url) 
+    
+    if (urlObj.hostname === 'engineering-collibra.atlassian.net') {
+      let app = urlObj.pathname.split("/")[1]
+      if (app === 'wiki') hostname = 'Confluence'
+      if (app === 'jira') hostname = 'Jira'
     }
 
     //find & remove port number
